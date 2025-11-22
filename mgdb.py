@@ -2,6 +2,7 @@ from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.encoders import jsonable_encoder
+from pymongo import MongoClient
 from bson import ObjectId
 import os
 from dotenv import load_dotenv
@@ -18,7 +19,7 @@ if not MONGO_URI:
 client = AsyncIOMotorClient(
     MONGO_URI,
     tls=True,
-    tlsCAFile=certifi.where(),   
+    tlsAllowInvalidCertificates=False
 )
 
 
