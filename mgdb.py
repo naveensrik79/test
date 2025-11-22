@@ -31,3 +31,18 @@ class genaidata(BaseModel):
 async def genai_data_insert(data:genaidata):
     result = await genai_data.insert_one(data.dict())
     return str(result.inserted_id)
+
+
+def mgdb_helper(doc):
+    doc["id"] = str(doc["_id"])
+    del doc["_id"]
+    return doc
+
+
+@app.get("/genai/getdata")
+async def get_genaimgdb_data():
+    iterms = []
+    cursor = genai_data.find({})
+    async for document in cursor:
+          iterms.append(mgdb_helper(document))
+    return iterms
