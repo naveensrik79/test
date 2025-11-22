@@ -7,6 +7,9 @@ from bson import ObjectId
 import os
 from dotenv import load_dotenv
 import certifi
+import ssl
+print(ssl.OPENSSL_VERSION)
+
 
 
 load_dotenv()
